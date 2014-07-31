@@ -8,10 +8,8 @@ $(document).ready(function(){
            return randomNo;
      };
 
-     randomNo = newGame();
-
 	/*--- As the page loads the function runs ---*/
-  	newGame();
+  	randomNo = newGame();
 
     /*--- New Game clears all the results and regens a random number---*/
   	$(".new").mousedown(function () {
