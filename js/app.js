@@ -1,11 +1,14 @@
 
 $(document).ready(function(){
 	  /*--- Variable that generates the random number ---*/
-	 var randomNo = Math.floor((Math.random()*100) + 1);
-	 var newGame = function () {
+	 var randomNo,
+	      newGame = function () {
+	 	   var randomNo = Math.floor((Math.random()*100) + 1);
            console.log(randomNo); 
            return randomNo;
      };
+
+     randomNo = newGame();
 
 	/*--- As the page loads the function runs ---*/
   	newGame();
@@ -15,7 +18,7 @@ $(document).ready(function(){
         	$('section li').remove();
         	$('#count').text("0");
             $('#feedback').text("Make your Guess!");
-        	newGame();
+        	randomNo = newGame ();
         });
 
      /*--- Variable that gets the players guess and coverts it to a number ---*/
