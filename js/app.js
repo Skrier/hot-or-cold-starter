@@ -12,6 +12,7 @@ $(document).ready(function(){
                       if (+guessNo === randomNo ) {
                          $('#feedback').text('You Guessed the correct number ' + guessNo + '. Your average \
                           guess was ' + sigma + ' away from the correct number');
+                         $('#distanceFeedback').text('You got it!');
                       }
                       else if (deviationNo >= 50) {
                          $('#feedback').text('Rigor Mortis!');
