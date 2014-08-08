@@ -85,7 +85,8 @@ $(document).ready(function(){
                                    stdDev();
                          };
               }  else {
-                   var alert = alert('A new game will now begin');
+                   var alert1 = alert('A new game will now begin');
+                   alert1();
                    if (alert) {
                       restart();
                    }
