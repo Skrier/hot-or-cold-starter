@@ -1,94 +1,143 @@
-
 $(document).ready(function(){
-	  /*--- Variable that generates the random number ---*/
-	 var randomNo,
-	      newGame = function () {
-	 	   var randomNo = Math.floor((Math.random()*100) + 1);
-           console.log(randomNo); 
-           return randomNo;
-     };
-
-	/*--- As the page loads the function runs ---*/
-  	randomNo = newGame();
-
-    /*--- New Game clears all the results and regens a random number---*/
-  	$(".new").mousedown(function () {
-        	$('section li').remove();
-        	$('#count').text("0");
-            $('#feedback').text("Make your Guess!");
-        	randomNo = newGame ();
-        });
-
-     /*--- Variable that gets the players guess and coverts it to a number ---*/
-	 var inputGuess = +$('#userGuess').val();  
-
-    /*--- Variable that provides them feedback on how close they are ---*/
-    var runGame = function (inputGuess) {
-          var randomNom = randomNo;
-          var inputGuess = +$('#userGuess').val();
-          var variance = Math.abs(inputGuess - randomNom);
-          if (inputGuess <= 0) {
-             alert('You have not entered in a correct number. Please enter a number greater the 0.');
-          }  
-            else if (randomNo === inputGuess) {
-             $('#feedback').text("You Guessed the correct number " + inputGuess);
-           }
-            else if (variance >= 50) {
-             $('#feedback').text("Rigor Mortis!");
-           }
-           else if (variance >= 35) {
-             $('#feedback').text("Very Cold");
-           }
-           else if (variance >= 25) {
-             $('#feedback').text("Cold");
-           }
-           else if (variance >= 15) {
-             $('#feedback').text("Warm");
-           }
-           else if (variance >= 10) {
-             $('#feedback').text("Hot");
-           }
-           else if (variance >= 5) {
-             $('#feedback').text("Very Hot");
-           }
-           else if (variance >= 0) {
-             $('#feedback').text("Incandescent");
-           } 
-           else {
-           	 alert('the game is broken');
-           };
+/*--- Function that generates the random number ---*/
+    var newGame =  function() {
+           randomNo = Math.floor((Math.random()*100)+1);
+           console.log(randomNo);
     };
 
-     /*--- Variable that appends the guess to the <ul id = guessList> ---*/
-    var listGuess = "<li>"+ inputGuess +"</li>";
+/*---Block of code that evaluates the players guess ---*/
+    var playGame = function () {            
+                      guessNo = $('input').val();
+                      deviationNo = Math.abs(+guessNo-randomNo);
+                      if (+guessNo === randomNo ) {
+                         $('#feedback').text('You Guessed the correct number ' + guessNo + '. Your average \
+                          guess was ' + sigma + ' away from the correct number');
+                      }
+                      else if (deviationNo >= 50) {
+                         $('#feedback').text('Rigor Mortis!');
+                      }
+                      else if (deviationNo >= 35) {
+                         $('#feedback').text('Very Cold');
+                      }
+                      else if (deviationNo >= 25) {
+                         $('#feedback').text('Cold');
+                      }
+                      else if (deviationNo >= 15) {
+                         $('#feedback').text('Warm');
+                      }
+                      else if (deviationNo >= 10) {
+                         $('#feedback').text('Hot');
+                      }
+                      else if (deviationNo >= 5) {
+                         $('#feedback').text('Very Hot');
+                      }
+                      else if (deviationNo > 0) {
+                         $('#feedback').text('Incandescent');
+                      } 
+                      else {
+                         alert('the game is broken');
+                      };
+    };
+    var arrayGuessNo = [];
+    var analytics = function () {
+                      arrayGuessNo.push(deviationNo);
+                      var prevDeviationNo = arrayGuessNo[(arrayGuessNo.length - 2)];
+                      console.log('new Guess');
+                      console.log(prevDeviationNo);
+                      console.log(deviationNo);
+                      
+                      if (deviationNo <= prevDeviationNo) {
+                                  $('#distanceFeedback').text('Your getting closer');
+                      } else {
+                                  $('#distanceFeedback').text('Your getting further away');
+                      };                                
+    };
 
-    var namedFunction = function () {$('#guessList').append(listGuess);
-        	$('#count').text(countGuess);
-	        runGame();
+    var stdDev = function () {
+                      var totalArrayGuess = 0;
+                      for (var i = 0; i < arrayGuessNo.length; i++) {
+                          totalArrayGuess += Math.pow(arrayGuessNo[i],2); 
+                      };
+                      sigma = parseInt(Math.sqrt(totalArrayGuess/arrayGuessNo.length));
+                      console.log(sigma);
+                      console.log(arrayGuessNo.length);
+                      console.log(arrayGuessNo);
+                      console.log(totalArrayGuess);
+    };
+     
+/*--- Events that allow you to play the game ---*/
+    function userEntry () {
+              if ( $('#feedback').text().length < 20) {
+                         guessNo = $('input').val();
+                         if (guessNo <= 0 || guessNo > 100 || isNaN(guessNo) || guessNo % 1 !== 0) {
+                                  alert('You have not entered in a correct value. Please enter a \
+                                  number from the 1 to 100.');
+                         }
+                         else {    
+                                   playGame();
+                                   guessNoStore = '<li>' + guessNo + '</li>';
+                                   $('#guessList').append(guessNoStore);
+                                   countGuess = $("#guessList").children().length;
+                                   $('#count').text(countGuess);
+                                   $('#userGuess').val('');
+                                   analytics();
+                                   stdDev();
+                         };
+              }  else {
+                   alert('A new game will now begin');
+              };                  
     }
-     /*--- Variable that counts the number of Guesses ---*/
-     var countGuess = function () {
-     	$(".guessBox li").length;
-     }
-     /*--- jQuery Events that allow you to play the game ---*/
-    $("#guessButton").mousedown(namedFunction);
 
-    $("#userGuess").keydown(function (enter) {
-        	if(enter.which === 13) {
-        	namedFunction();
-	        }
+    $('#guessButton').on('mousedown', function (event) {
+         event.preventDefault();
+         userEntry();   
+     });
+
+    $('#userGuess').on('keydown', function (event) {
+        if(event.which === 13) {
+         userEntry();
+        };
+     });
+
+/*---Restarts the game when the new game button is clicked ---*/
+    $('.new').on('mousedown', function() {
+           $('#feedback').text('Make your Guess!');
+           $('#count').text('0');
+           $('section li').remove();
+           newGame();
+    });
+    
+/*---Runs the randomNoGen when page loads ---*/
+    newGame();
+
+/*--- Display information modal box ---*/
+    $(".what").click(function(){
+      $(".overlay").fadeIn(1000);
     });
 
-    /*--- Display information modal box ---*/
-  	$(".what").click(function(){
-    	$(".overlay").fadeIn(1000);
-  	});
-
-  	/*--- Hide information modal box ---*/
-  	$("a.close").click(function(){
-  		$(".overlay").fadeOut(1000);
-  	});
+/*--- Hide information modal box ---*/
+    $("a.close").click(function(){
+      $(".overlay").fadeOut(1000);
+    });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
