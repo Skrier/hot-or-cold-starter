@@ -90,9 +90,9 @@ $(document).ready(function(){
                    var promptNewGame = confirm('A new game will now begin');
                    if (promptNewGame){
                        restart();
-                   }; else {
+                   } else {
                       alert('Continue with the current game');
-                   }
+                   };
               };                  
     }
 
