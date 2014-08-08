@@ -91,8 +91,8 @@ $(document).ready(function(){
 
     $('#guessButton').on('mousedown', function (event) {
          event.preventDefault();
-         event.stopPropagation();
-         userEntry();   
+         userEntry();  
+         event.stopPropagation(); 
      });
 
     $('#userGuess').on('keydown', function (event) {
