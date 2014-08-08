@@ -87,7 +87,12 @@ $(document).ready(function(){
                                    stdDev();
                          };
               }  else {
-                   alert('A new game will now begin');
+                   variable promptNewGame = confirm('A new game will now begin');
+                   if (promptNewGame){
+                       restart();
+                   }; else {
+                      alert('Continue with the current game');
+                   }
               };                  
     }
 
