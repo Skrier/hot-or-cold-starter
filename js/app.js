@@ -92,7 +92,7 @@ $(document).ready(function(){
     $('#guessButton').on('mousedown', function (event) {
          event.preventDefault();
          userEntry();  
-         event.stopPropagation(); 
+         /*event.stopPropagation(); */
      });
 
     $('#userGuess').on('keydown', function (event) {
