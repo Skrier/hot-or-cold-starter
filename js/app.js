@@ -47,7 +47,7 @@ $(document).ready(function(){
                       console.log(deviationNo);
                       if (prevDeviationNo === undefined || prevDeviationNo === null )  {
                             $('#distanceFeedback').text('This is your first guess');   
-                      } else if ((deviationNo - prevDeviationNo) = 0) {
+                      } else if ((deviationNo - prevDeviationNo) === 0) {
                             $('#distanceFeedback').text('You got it!');      
                       } else if (deviationNo <= prevDeviationNo) {
                             $('#distanceFeedback').text('Your getting closer');      
