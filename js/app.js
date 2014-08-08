@@ -87,7 +87,7 @@ $(document).ready(function(){
                                    stdDev();
                          };
               }  else {
-                   variable promptNewGame = confirm('A new game will now begin');
+                   var promptNewGame = confirm('A new game will now begin');
                    if (promptNewGame){
                        restart();
                    }; else {
