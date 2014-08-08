@@ -12,7 +12,6 @@ $(document).ready(function(){
                       if (+guessNo === randomNo ) {
                          $('#feedback').text('You Guessed the correct number ' + guessNo + '. Your average \
                           guess was ' + sigma + ' away from the correct number');
-                         $('#distanceFeedback').text('You got it!');
                       }
                       else if (deviationNo >= 50) {
                          $('#feedback').text('Rigor Mortis!');
@@ -46,12 +45,15 @@ $(document).ready(function(){
                       console.log('new Guess');
                       console.log(prevDeviationNo);
                       console.log(deviationNo);
-                      
-                      if (deviationNo <= prevDeviationNo) {
-                                  $('#distanceFeedback').text('Your getting closer');
+                      if (prevDeviationNo === undefined || prevDeviationNo === null )  {
+                            $('#distanceFeedback').text('This is your first guess');   
+                      } else if ((deviationNo - prevDeviationNo) = 0) {
+                            $('#distanceFeedback').text('You got it!');      
+                      } else if (deviationNo <= prevDeviationNo) {
+                            $('#distanceFeedback').text('Your getting closer');      
                       } else {
-                                  $('#distanceFeedback').text('Your getting further away');
-                      };                                
+                            $('#distanceFeedback').text('Your getting further away');
+                      };                             
     };
 
     var stdDev = function () {
@@ -68,7 +70,7 @@ $(document).ready(function(){
      
 /*--- Events that allow you to play the game ---*/
     function userEntry () {
-              if ( $('#feedback').text().length < 20) {
+              if ( $('#feedback').length < 20) {
                          guessNo = $('input').val();
                          if (guessNo <= 0 || guessNo > 100 || isNaN(guessNo) || guessNo % 1 !== 0) {
                                   alert('You have not entered in a correct value. Please enter a \
@@ -108,7 +110,6 @@ $(document).ready(function(){
            $('section li').remove();
            newGame();
     }
-
 
     $('.new').on('mousedown', function() {
            restart();
