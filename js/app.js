@@ -108,7 +108,7 @@ $(document).ready(function(){
            $('#count').text('0');
            $('section li').remove();
            newGame();
-    });
+    }
 
 
     $('.new').on('mousedown', function() {
