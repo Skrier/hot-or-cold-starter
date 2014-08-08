@@ -86,9 +86,6 @@ $(document).ready(function(){
                          };
               }  else {
                    alert('A new game will now begin');
-                   if (alert) {
-                      restart();
-                   }
               };                  
     }
 
