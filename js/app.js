@@ -70,7 +70,7 @@ $(document).ready(function(){
      
 /*--- Events that allow you to play the game ---*/
     function userEntry () {
-              if ( $('#feedback').length < 20) {
+              if ( $('#feedback').text().length < 20) {
                          guessNo = $('input').val();
                          if (guessNo <= 0 || guessNo > 100 || isNaN(guessNo) || guessNo % 1 !== 0) {
                                   alert('You have not entered in a correct value. Please enter a \
