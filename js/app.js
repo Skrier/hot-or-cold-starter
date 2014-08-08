@@ -79,12 +79,15 @@ $(document).ready(function(){
                                    $('#guessList').append(guessNoStore);
                                    countGuess = $("#guessList").children().length;
                                    $('#count').text(countGuess);
-                                   $('#userGuess').val('');
+                                   $('#userGuess').val(' ');
                                    analytics();
                                    stdDev();
                          };
               }  else {
-                   alert('A new game will now begin');
+                   var alert = alert('A new game will now begin');
+                   if (alert) {
+                      restart();
+                   }
               };                  
     }
 
@@ -100,11 +103,16 @@ $(document).ready(function(){
      });
 
 /*---Restarts the game when the new game button is clicked ---*/
-    $('.new').on('mousedown', function() {
+    function restart () {
            $('#feedback').text('Make your Guess!');
            $('#count').text('0');
            $('section li').remove();
            newGame();
+    });
+
+
+    $('.new').on('mousedown', function() {
+           restart();
     });
     
 /*---Runs the randomNoGen when page loads ---*/

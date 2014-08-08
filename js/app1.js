@@ -6,7 +6,6 @@
            console.log(randomNo); 
            return randomNo;
      };
-
   /*--- As the page loads the function runs ---*/
     randomNo = newGame();
 
