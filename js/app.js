@@ -98,8 +98,9 @@ $(document).ready(function(){
 
     $('#guessButton').on('mousedown', function (event) {
          event.preventDefault();
-         userEntry();  
          event.stopPropagation();
+         userEntry();  
+         
      });
 
     $('#userGuess').on('keydown', function (event) {
@@ -113,6 +114,7 @@ $(document).ready(function(){
            $('#feedback').text('Make your Guess!');
            $('#count').text('0');
            $('section li').remove();
+           $('#distanceFeedback').text(' ');
            newGame();
     }
 
